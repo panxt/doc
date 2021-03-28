@@ -34,6 +34,30 @@ Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
 #PASSWORD elastic = XijPUUBvWF2GXMVPnutL
 ~
 
+curl -u elastic:XijPUUBvWF2GXMVPnutL 'http://localhost:9200/_xpack/license'
+
+[root@node01 ~]# curl -u elastic:XijPUUBvWF2GXMVPnutL 'http://localhost:9200/_xpack/license'
+{
+  "license" : {
+    "status" : "active",
+    "uid" : "fcc9935f-c326-4c5c-a934-1335a02160fa",
+    "type" : "trial",
+    "issue_date" : "2021-03-16T03:58:01.763Z",
+    "issue_date_in_millis" : 1615867081763,
+    "expiry_date" : "2021-04-15T03:58:01.763Z",
+    "expiry_date_in_millis" : 1618459081763,
+    "max_nodes" : 1000,
+    "issued_to" : "elasticsearch",
+    "issuer" : "elasticsearch",
+    "start_date_in_millis" : -1
+  }
+}
+
+1.申请license
+https://license.elastic.co/registration
+
+2.安装license
+curl -XPUT -u elastic:XijPUUBvWF2GXMVPnutL 'http://localhost:9200/_xpack/license?acknowledge=true' -H "Content-Type: application/json" -d @license.json
 
 echo "Hello Graylog, let's be friends." | nc -w 1 -u 127.0.0.1 9099
 

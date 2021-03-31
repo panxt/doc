@@ -2,7 +2,7 @@ bin/elasticsearch-plugin install file:///x-pack-6.2.4.zip
 
 bin/x-pack/certutil ca
 
-bin/x-pack/certutl cert --ca elastic-stack-ca.p12
+bin/x-pack/certutil cert --ca elastic-stack-ca.p12
 
 cp  elastic-stack-ca.p12 config/cert
 
@@ -14,7 +14,8 @@ xpack.security.transport.ssl.keystore.path: cert/elastic-stack-ca.p12
 xpack.security.transport.ssl.trusttore.path: cert/elastic-stack-ca.p12
 ----elasticsearch.yml-----
 
-chown -R elasticsearch:elasticsearch cert
+chown -R elasticsearch:elasticsearch config/cert
+chmod -R 777 config/cert
 
 重启es
 

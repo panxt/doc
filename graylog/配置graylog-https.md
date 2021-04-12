@@ -5,11 +5,20 @@ openssl pkcs8 -in pkcs5-plain.pem -topk8 -nocrypt -out pkcs8-plain.pem
 
 openssl pkcs8 -in pkcs5-plain.pem -topk8 -out pkcs8-encrypted.pem -passout pass:andisec@123
 
-cp -a "${JAVA_HOME}/jre/lib/security/cacerts" /path/to/cacerts.jks
+cp -a "${JAVA_HOME}/jre/lib/security/cacerts" ./cacerts.jks
 
 keytool -importcert -keystore cacerts.jks -storepass changeit -alias andisec-self-signed-wh -file cert.pem
 
 keytool -keystore cacerts.jks -storepass changeit -list | grep andisec-self-signed-wh -A1
+
+## server.conf
+http_enable_tls = true
+http_tls_cert_file = /usr/andisec/graylog/security/cert.pem
+http_tls_key_file = /usr/andisec/graylog/security/pkcs8-encrypted.pem
+http_tls_key_password = andisec@123
+
+## bin/graylogctl
+-Djavax.net.ssl.trustStore=/usr/andisec/graylog/security/cacerts.jks -Djavax.net.ssl.trustStorePassword=changeit
 
 
 keytool -delete -alias andisec-self-signed -keystore cacerts.jks -storepass changeit
@@ -74,3 +83,8 @@ db.getCollection("event_definitions").find({"threat_type": "0"} );
 db.getCollection("event_definitions").remove({_id:ObjectId("6059ad8eb41b18786ae5ce18")})
 db.getCollection("event_definitions").remove({_id:ObjectId("6059ad8eb41b18786ae5ce19")})
 db.getCollection("event_definitions").remove({_id:ObjectId("6059ad8eb41b18786ae5ce1a")})
+
+
+
+
+https://superuser.com/questions/1451895/err-ssl-key-usage-incompatible-solution

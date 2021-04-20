@@ -88,3 +88,24 @@ db.getCollection("event_definitions").remove({_id:ObjectId("6059ad8eb41b18786ae5
 
 
 https://superuser.com/questions/1451895/err-ssl-key-usage-incompatible-solution
+
+[req]
+distinguished_name = req_distinguished_name
+x509_extensions = v3_req
+prompt = no
+[req_distinguished_name]
+# C = US
+# ST = California
+# L = Los Angeles
+# O = Internet Corporation for Assigned Names and Numbers
+# OU = IT Operations
+CN = home.arpa
+[v3_req]
+keyUsage = nonRepudiation, digitalSignature, keyEncipherment
+extendedKeyUsage = serverAuth
+subjectAltName = @alt_names
+[alt_names]
+DNS.1 = home.arpa
+DNS.2 = *.home.arpa
+IP.1 = 192.168.1.1
+IP.2 = fe80::123:4567:89ab:cdef

@@ -20,7 +20,7 @@ http_tls_key_password = andisec@123
 ## bin/graylogctl
 -Djavax.net.ssl.trustStore=/usr/andisec/graylog/security/cacerts.jks -Djavax.net.ssl.trustStorePassword=changeit
 
-
+## 删除密钥库中证书
 keytool -delete -alias andisec-self-signed -keystore cacerts.jks -storepass changeit
 
 
